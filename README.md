@@ -1,6 +1,6 @@
 # CodigosLP
 Códigos de "Lenguajes de Programación"
-Aquí se empezarán a guardar códigos desde el 03/05
+Aquí se empezarán a guardar códigos desde el 03/05 [color: red]
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNDMyMTEwMjZdfQ==
+eyJoaXN0b3J5IjpbODQwOTEyMTJdfQ==
 -->
