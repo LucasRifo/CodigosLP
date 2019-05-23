@@ -1,37 +1,69 @@
 import pygame
+import sys
 pygame.init()
 clock = pygame.time.Clock()
 
+GRAY      = (100, 100, 100)
+NAVYBLUE  = ( 60,  60, 100)
+WHITE     = (255, 255, 255)
+RED       = (255,   0,   0)
+GREEN     = (  0, 255,   0)
+BLUE      = (  0,   0, 255)
+YELLOW    = (255, 255,   0)
+ORANGE    = (255, 128,   0)
+PURPLE    = (255,   0, 255)
+CYAN      = (  0, 255, 255)
+BLACK     = (  0,   0,   0)
+NEARBLACK = ( 19,  15,  48)
+COMBLUE   = (233, 232, 255)
+
 screen = pygame.display.set_mode((900,500))
-is_blue = False
-color_rect = (0,128,255)
-x=500
-y=80
+Color1 = True
+Color2 = True
+x1=200
+y1=300
+x2=700
+y2=300
 
 while True:
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			pygame.QUIT()
 		if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-			is_blue = not is_blue
+			Color2 = not Color2
+		if event.type == pygame.KEYDOWN and event.key == 47:
+			Color1 = not Color1
 
 	pressed = pygame.key.get_pressed()
 	if pressed[pygame.K_UP]:
-		y += -3
+		y1 += -3
 	if pressed[pygame.K_DOWN]:
-		y += 3
+		y1 += 3
 	if pressed[pygame.K_LEFT]:
-		x += -3
+		x1 += -3
 	if pressed[pygame.K_RIGHT]:
-		x += 3
+		x1 += 3
+	if pressed[119]:
+		y2 += -3
+	if pressed[115]:
+		y2 += 3
+	if pressed[97]:
+		x2 += -3
+	if pressed[100]:
+		x2 += 3
 
-	if is_blue:
-		color_rect = (0,128,255)
+	if Color1:
+		color_rect1 = BLUE
 	else:
-		color_rect = (255,128,0)
+		color_rect1 = WHITE
+	if Color2:
+		color_rect2 = RED
+	else:
+		color_rect2 = ORANGE
 
 	screen.fill((0,0,0))
-	pygame.draw.rect(screen,color_rect,pygame.Rect(x,y,60,60))
+	pygame.draw.rect(screen,color_rect1,pygame.Rect(x1,y1,30,30))
+	pygame.draw.rect(screen,color_rect2,pygame.Rect(x2,y2,30,30))
 
 	pygame.display.flip()
 	clock.tick(60)
