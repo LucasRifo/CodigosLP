@@ -1,7 +1,5 @@
 import pygame
 import sys
-pygame.init()
-clock = pygame.time.Clock()
 
 screen = pygame.display.set_mode((900,500))
 
@@ -19,87 +17,60 @@ BLACK     = (  0,   0,   0)
 NEARBLACK = ( 19,  15,  48)
 COMBLUE   = (233, 232, 255)
 """Lista de colores que puedo utilizar"""
-"""
-Titulo="Título"
-Ancho = 640
-Alto = 480
-Para imprimir el título?"""
 
 Tamaño_Jugador = 40
 Color1 = BLUE
 Color2 = RED
-x1=200
-y1=300
-x2=700
-y2=300
+x1 = 200
+y1 = 300
+x2 = 700
+y2 = 300
 """Condiciones de Spawn iniciales"""
 
-"""
-BULLETWIDTH = 5
-BULLETHEIGHT = 5
-BULLETOFFSET = 700
-Propiedades de los Disparos?"""
-
-Direcciones = {pygame.K_LEFT  : (-1),
-               pygame.K_RIGHT : (1),
-               pygame.K_UP : (-1),
-               pygame.K_DOWN: (1)}
-"""Para que los inputs no se interlapsen"""
+Direcciones={pygame.K_UP:-1,pygame.K_DOWN:1,pygame.K_LEFT:-1,pygame.K_RIGHT:1}
 
 class Player1(pygame.sprite.Sprite):
-	def __init__(self):
-		pygame.sprite.Sprite.__init__(self)
-		self.width = Tamaño_Jugador
-		self.image = pygame.Surface((self.width, self.width))
-		self.color = Color1
-		self.image.fill(self.color)
-		self.rect = self.image.get_rect()
-		self.name = PLAYER1
-		self.speed = 3
-		self.vectorx = 0
-		self.vectory = 0
-
-	def update(self, keys, *args):
+    def __init__(self):
+        self.dimensión = Tamaño_Jugador
+        self.imagen = pygame.Surface(self.dimensión,self.dimensión)
+        self.color = Color1
+        self.imagen.fill(color)
+        self.rect = self.image.get_rect()
+        self.nombre = "Player1"
+        self.velocidad = 3
+        self.vectorX = 0
+    def Actualizar(self,keys,*args):
         for key in Direcciones:
             if keys[key]:
-                self.rect.x += Direcciones[key] * self.speed
-                
-        self.Check_Colisiones()
-        self.image.fill(self.color)
-
-    def Check_Colisiones(self):
-        if self.rect.right > Ancho:
-            self.rect.right = Ancho
-            self.vectorx = 0
+                self.rectx  += DIRECT_DICT[key] * self.speed
+        self.Colisiones()
+        self.imagen.fill(self.color)
+    def Colisiones(self):
+        if self.rect.right > 500:
+            self.rect.right = 500
+            self.vectorX = 0
         elif self.rect.left < 0:
             self.rect.left = 0
-            self.vectorx = 0
+            self.vectorX = 0
+class App(Elemento):
+    def __init__(self):
+        pygame.init()
+        #clock = pygame.time.Clock()
+        self.displaySurf, self.displayRect = self.makeScreen()
+        self.GameStart = True
+        self.GameOver = False
+        self.BeginGame = False
 
-class Player2(pygame.sprite.Sprite):
-	def __init__(self):
-		pygame.sprite.Sprite.__init__(self)
-		self.width = Tamaño_Jugador
-		self.image = pygame.Surface((self.width, self.width))
-		self.color = Color2
-		self.image.fill(self.color)
-		self.rect = self.image.get_rect()
-		self.name = PLAYER2
-		self.speed = 3
-		self.vectorx = 0
-		self.vectory = 0
+    def ResetGame(self):
+        self.GameStart = True
+        self.MensajeIntro1 = Text('orena.tff',25,'Bienvenido',GREEN,self.displayRect,self.displaySurf)
+        self.MensajeIntro2 = Text('orena.tff',20,'Bienvenido',GREEN,self.displayRect,self.displaySurf)
+        self.MensajeIntro2.rect.top = self.MensajeIntro1.rect.bottom + 5
+        self.MensajeGameOver = Text('orena.tff',25,'Game Over',GREEN,self.displayRect,self.displaySurf)
+        self.player1 = self.CrearPlayer()
 
-	def update(self, keys, *args):
-        for key in Direcciones:
-            if keys[key]:
-                self.rect.x += Direcciones[key] * self.speed
-                
-        self.Check_Colisiones()
-        self.image.fill(self.color)
-
-    def Check_Colisiones(self):
-        if self.rect.right > Ancho:
-            self.rect.right = Ancho
-            self.vectorx = 0
-        elif self.rect.left < 0:
-            self.rect.left = 0
-            self.vectorx = 0
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.QUIT()
+pygame.quit()
