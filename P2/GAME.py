@@ -3,6 +3,8 @@ import sys
 pygame.init()
 clock = pygame.time.Clock()
 
+screen = pygame.display.set_mode((900,500))
+
 GRAY      = (100, 100, 100)
 NAVYBLUE  = ( 60,  60, 100)
 WHITE     = (255, 255, 255)
@@ -16,14 +18,16 @@ CYAN      = (  0, 255, 255)
 BLACK     = (  0,   0,   0)
 NEARBLACK = ( 19,  15,  48)
 COMBLUE   = (233, 232, 255)
+"""Lista de colores que puedo utilizar"""
 
-screen = pygame.display.set_mode((900,500))
-Color1 = True
-Color2 = True
+Tamaño_Jugador = 40
+Color1 = BLUE
+Color2 = RED
 x1=200
 y1=300
 x2=700
 y2=300
+"""Condiciones de Spawn iniciales"""
 
 while True:
 	for event in pygame.event.get():
@@ -61,9 +65,9 @@ while True:
 	else:
 		color_rect2 = ORANGE
 
-	screen.fill((0,0,0))
-	pygame.draw.rect(screen,color_rect1,pygame.Rect(x1,y1,30,30))
-	pygame.draw.rect(screen,color_rect2,pygame.Rect(x2,y2,30,30))
+	screen.fill(BLACK)
+	pygame.draw.rect(screen,color_rect1,pygame.Rect(x1,y1,Tamaño_Jugador,Tamaño_Jugador))
+	pygame.draw.rect(screen,color_rect2,pygame.Rect(x2,y2,Tamaño_Jugador,Tamaño_Jugador))
 
 	pygame.display.flip()
 	clock.tick(60)
